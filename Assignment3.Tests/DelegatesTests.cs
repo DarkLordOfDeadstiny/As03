@@ -16,7 +16,7 @@ namespace BDSA2021.Assignment03.Tests
 
             var input = "1 2 3 4 5 6 7 8 9";
 
-            var reverse = (string s) => Console.WriteLine(String.Concat(s.Reverse()));
+            Action<string> reverse = (string s) => Console.WriteLine(String.Concat(s.Reverse()));
             reverse(input);
 
             var expected = "9 8 7 6 5 4 3 2 1";
@@ -27,7 +27,7 @@ namespace BDSA2021.Assignment03.Tests
         [Fact]
         public void find_product_of_two_numbers()
         {
-            var product = (decimal d1, decimal d2) => d1 * d2;
+            Func<decimal, decimal, decimal> product = (decimal d1, decimal d2) => d1 * d2;
 
             Assert.Equal(10, product(2, 5));
         }
@@ -38,7 +38,7 @@ namespace BDSA2021.Assignment03.Tests
             var s = " ,. 0042";
             var num = 0042;
 
-            var isEqual = (string s, int num) => int.Parse(s.Trim(' ',',','.')) == num;
+            Func<string, int, bool> isEqual = (string s, int num) => int.Parse(s.Trim(' ',',','.')) == num;
 
             Assert.True(isEqual(s, num));
         }
