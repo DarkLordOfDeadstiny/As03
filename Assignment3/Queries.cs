@@ -34,9 +34,38 @@ namespace BDSA2021.Assignment03
             select w.Year).Min().GetValueOrDefault();
         }
 
-        public static IEnumerable<(string, int?)> getUniqueHarryPotterWizards(this IEnumerable<Wizard> wizards) 
+        public static IEnumerable<(string, int?)> getUniqueHarryPotterWizardsExt(this IEnumerable<Wizard> wizards) 
         {
-            return wizards.Where(x => x.Medium.StartsWith("Harry Potter")).Select(x => (x.Name, x.Year)).AsEnumerable();
+            return wizards.Where(x => x.Medium.StartsWith("Harry Potter")).Select(x => (x.Name, x.Year));
         }
+
+        public static IEnumerable<(string name, int? Year)> getUniqueHarryPotterWizardsLinq(this IEnumerable<Wizard> wizards)
+        {
+            return from w in wizards
+                   where w.Medium.StartsWith("Harry Potter")
+                   select (w.Name, w.Year);
+        }
+
+        public static IEnumerable<string> getWizardsOrderedByCreatorAndNameExt(this IEnumerable<Wizard> wizards)
+        {
+            return wizards
+                .GroupBy(w => new { w.Creator, w.Name })
+                .OrderByDescending(w => w.Key.Creator)
+                .ThenByDescending(w => w.Key.Name)
+                .Select(w => w.Key.Name);
+
+        }
+
+        public static IEnumerable<string> getWizardsOrderedByCreatorAndNameLinq(this IEnumerable<Wizard> wizards)
+        {
+            return from w in wizards
+                   group w by new { w.Creator, w.Name } into g
+                   orderby g.Key.Creator descending, g.Key.Name descending
+                   select g.Key.Name;
+
+        }
+
+
+
     }
 }

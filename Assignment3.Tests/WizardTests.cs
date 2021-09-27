@@ -61,14 +61,53 @@ namespace BDSA2021.Assignment03.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Return_unique_wizards_from_harry_potter_extension_method()
+        [Theory]
+        [InlineData("Harry Potter", 1997)]
+        [InlineData("Albus Dumbledore", 1997)]
+        public void Return_unique_wizards_from_harry_potter_extension_method(string name, int year)
         {
-            var expected = new List<(string, int)>() {("Harry Potter", 1997), ("Albus Dumbledore", 1997)};
-            var result = Wizard.Wizards.Value.getUniqueHarryPotterWizards();
+            var result = Wizard.Wizards.Value.getUniqueHarryPotterWizardsExt();
+
+            Assert.Contains(result, w =>
+                w.Item1 == name &&
+                w.Item2 == year
+            );
+        }
+
+        [Theory]
+        [InlineData("Harry Potter", 1997)]
+        [InlineData("Albus Dumbledore", 1997)]
+        public void Return_unique_wizards_from_harry_potter_linq_method(string name, int year)
+        {
+            var result = Wizard.Wizards.Value.getUniqueHarryPotterWizardsLinq();
+
+            Assert.Contains(result, w =>
+                w.name == name &&
+                w.Year == year
+            );
+        }
+
+        [Fact]
+        public void Wizards_reversed_order_by_creator_then_name_extension_method()
+        {
+            var expected = new[] { "Doctor Strange", "Glinda the Good Witch", "Merlin", "Sauron", "Gandalf the Grey", "Harry Potter", "Albus Dumbledore", "Yoda" , "Luke Skywalker" , "Darth Vader" , "Darth Maul" , "Grand Vizier Jafar" , "The White Witch" };
+
+            var result = Wizard.Wizards.Value.getWizardsOrderedByCreatorAndNameExt();
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void Wizards_reversed_order_by_creator_then_name_linq_method()
+        {
+            var expected = new[] { "Doctor Strange", "Glinda the Good Witch", "Merlin", "Sauron", "Gandalf the Grey", "Harry Potter", "Albus Dumbledore", "Yoda", "Luke Skywalker", "Darth Vader", "Darth Maul", "Grand Vizier Jafar", "The White Witch" };
+
+            var result = Wizard.Wizards.Value.getWizardsOrderedByCreatorAndNameLinq();
+
+            Assert.Equal(expected, result);
+        }
+
+
     }
 }
 

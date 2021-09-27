@@ -19,7 +19,7 @@ namespace Assignment3
             //var yss = from y in ys
             //          where y > 42 && y % 7 == 0
             //          select y;
-            int Year = 0;
+            //int Year = 0;
 
             var yss = from y in ys
                       where DateTime.IsLeapYear(y)
