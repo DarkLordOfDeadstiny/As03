@@ -42,9 +42,5 @@ namespace BDSA2021.Assignment03.Tests
 
             Assert.True(isEqual(s, num));
         }
-
-
-
-
     }
 }
